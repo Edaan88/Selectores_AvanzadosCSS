@@ -1,0 +1,112 @@
+header{
+    background-image: url("/img/fondo1.png");
+    background-size: cover;
+    background-position: center;
+}
+
+header > nav{
+    padding: 1.5em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header> nav> h1:first-child{
+    font-weight: 800;
+    color: white;
+    text-transform: uppercase;
+    display: flex;/*muestra elementos de bloque como elementos en linea*/
+    align-items: center;
+}
+/*data define como variable (data-x)*/
+span[data-huevo]::after{/*::after subclase*/
+    content: attr(data-huevo);
+    background-image: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082,#9400d3);
+    background-size: 200% 100%;
+    background-clip: text;
+    color: transparent;
+    font-size: 1.5em;
+    animation: rainbow 1s infinite;
+    /*background: red;
+    padding: 10px;*/
+}
+
+@keyframes rainbow{
+    0%{
+        background-position: 0 50%;
+    }
+    50%{
+        background-position: 100% 50%;
+    }
+    100%{
+        background-position: 200% 50%;
+    }
+}
+
+/*selecciona el elemento siguiente al span*/
+span[data-huevo]+span{
+    text-shadow: 0 2px 0 cyan,2px 0 0 magenta,-2px -2px 0 yellow; /*eje x, eje y, difuminado*/
+}
+/*se usa como un selector, se selecciona dentro del header dentro del nav y dentro de menu*/
+header > nav > menu{
+    display: flex;
+    gap: 20px;/*reemplaza a margin(es un espaciado)*/
+    align-items: center;
+}
+
+header > nav > menu a{/*selecciona las anclas dentro de menu*/
+    color: white;
+    transition: font-size 0.3s;
+}
+
+header > nav > menu a:hover{/*aplica estos cambios cuando el cursor pasa por encima*/
+    font-size: 1.2em;
+}
+
+header > nav > label[for="burger"]{/*deja de mostrar el elemento con id burger*/
+    display: none;
+}
+
+@media (max-width: 760px){/*media define el medio que se esta manejando y se tomara en cuenta para proseguir con el codigo*/
+    header > nav > label[for="burger"]{
+        display: block;/*Muestra un elemento de tipo bloque*/
+        z-index: 2;/*coordenadas z? muestra por encima de los demas elementos*/
+    }
+    header > nav{/*hace que los elementos en la posision absolute tengan relacion con los elementos de (en este caso) nav*/
+        position: relative;
+    }
+    header > nav > menu{
+        flex-direction: column;/*los elementos los coloca en columna*/
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        transition: all 0.3s;
+        z-index: 1;
+        overflow:hidden;/*se utiliza para esconder los elementos que estan afuera del menu
+        , tambien sirve para decidir si se muestra un scroll en caso de que no se escondan*/
+        justify-content: center;
+    }
+    #burger{
+        display: none;/*deja de mostral el input(checkbox)*/
+    }
+    /*header > nav > label[for="burger"]{
+        /* z-index: 2;
+        display: block; */ /* *No hace nada* */
+    
+    /*verifica si la casilla del input esta seleccionada o no*/
+    header > nav > label[for="burger"]:has(#burger:not(:checked)) + menu{
+        height: 0;
+    }
+    /*(+"menu") seleciona el elemento que esta despues del label*/
+    
+    header > nav > label[for="burger"]:has(#burger:checked) + menu{
+        height: 100vh;
+    }
+
+    header > nav + div iframe{
+        max-width: 100px;
+    }
+
+}
